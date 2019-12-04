@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.zhangyuhao.mapper.AppMapper">
+ <!-- 全查 -->
+ <select id="list" resultType="com.zhangyuhao.entity.Applicant">
+	 select a.aid,a.name,a.gender,a.college,a.major,a.edu,a.degree,a.created,
+ 	AVG(s.score) avg,GROUP_CONCAT(j.name,s.score)jname from cctv_applicant a LEFT JOIN cctv_score s
+	on a.aid=s.aid LEFT JOIN cctv_job j on s.jid=j.jid GROUP BY a.aid
+ </select>
+ <!-- 主持90+ -->
+ <select id="avg" resultType="com.zhangyuhao.entity.Applicant">
+select a.aid,a.name,a.gender,a.college,a.major,a.edu,a.degree,a.created,AVG(s.score) avg,GROUP_CONCAT(j.name,s.score)
+jname from cctv_applicant a,cctv_score s
+ ,cctv_job j where a.aid=s.aid and s.jid=j.jid and j.jid=1 and s.score>90  GROUP BY a.aid 
+ </select>
+ <!-- 平均80分 -->
+ <select id="ping" resultType="com.zhangyuhao.entity.Applicant">
+ select a.aid,a.name,a.gender,a.college,a.major,
+ a.edu,a.degree,a.created,AVG(s.score) avg,GROUP_CONCAT(j.name,s.score)jname from cctv_applicant a,cctv_score s
+ ,cctv_job j where a.aid=s.aid and s.jid=j.jid GROUP BY a.aid HAVING AVG(s.score)>80
+ </select>
+ <!-- 研究生 -->
+ <select id="edu" resultType="com.zhangyuhao.entity.Applicant">
+ 	select a.aid,a.name,a.gender,a.college,a.major,a.edu,a.degree,a.created,
+ 	AVG(s.score) avg,GROUP_CONCAT(j.name,s.score)jname from cctv_applicant a,cctv_score s
+ ,cctv_job j where a.aid=s.aid and s.jid=j.jid and edu=3 GROUP BY a.aid
+ </select>
+ </mapper> 
