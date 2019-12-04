@@ -31,7 +31,7 @@ public class AppController {
 	private AppService service;
 	//列表方法
 	//我是源文件
-	//我是测试文件
+	//我是测试文件 
 	@RequestMapping("list.do")
 	public  Object list(Model m,@RequestParam(defaultValue="1")int pageNum){
 		//分页
