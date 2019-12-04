@@ -33,6 +33,7 @@ public class AppController {
 	//我是源文件
 	//我是测试文件 
 	//我是张宇浩
+	//我是杨家陈
 	@RequestMapping("list.do")
 	public  Object list(Model m,@RequestParam(defaultValue="1")int pageNum){
 		//分页
